@@ -1,136 +1,50 @@
 # Implementation-of-Q-Learning-Control-Algorithm-using-Gymnasium
+        3: "U"
+    }
 
-## Aim
+    policy_grid = np.array(
+        [action_symbols[action] for action in policy]
+    ).reshape(4, 4)
 
-To implement the **Q-Learning control algorithm** using the Gymnasium `FrozenLake-v1` environment and learn an optimal action-value function that enables the agent to select suitable actions for reaching the goal state while avoiding holes.
-
----
-
-## Problem Statement
-
-
-
-## Software Requirements
-
-
-
-## Environment Description
-
-
-
-## Theory
-
-Q-Learning estimates the optimal action-value function directly.
-
-The action-value function $Q(s,a)$ represents the expected return obtained when the agent takes action $a$ in state $s$, and then follows the best possible policy afterward.
-
-The Q-Learning update rule is:
-
-$$
-Q(S_t,A_t) \leftarrow Q(S_t,A_t) + \alpha
-\left[
-R_{t+1} + \gamma \max_{a} Q(S_{t+1},a) - Q(S_t,A_t)
-\right]
-$$
-
-Where:
-
-| Symbol | Meaning |
-|---|---|
-| $S_t$ | Current state |
-| $A_t$ | Current action |
-| $R_{t+1}$ | Reward received after taking action $A_t$ |
-| $S_{t+1}$ | Next state |
-| $\alpha$ | Learning rate |
-| $\gamma$ | Discount factor |
-| $Q(s,a)$ | Action-value function |
-| $max_{a} Q(S_{t+1},a)$ | Maximum action value in the next state |
-
----
-
-## Epsilon-Greedy Action Selection
-
-During training, the agent uses epsilon-greedy action selection.
-
-With probability $\epsilon$, the agent explores by selecting a random action.
-
-With probability $1-\epsilon$, the agent exploits by selecting the action with the highest Q-value.
-
-$$
-a =
-\begin{cases}
-\text{random action}, & \text{with probability } \epsilon \\
-\arg\max_{a} Q(s,a), & \text{with probability } 1-\epsilon
-\end{cases}
-$$
-
----
-
-## Algorithm
-
-
-
-## Python Program
-
-```python
-
-# -------------------------------------------------
-# Q-Learning Training
-# -------------------------------------------------
-# Write your code here
-
-
-
-
-
-
-
+    print("\nLearned Policy:")
+    print(policy_grid)
 ```
----
 
 ## Output
 
-```text
-Final Q-table:
+### Final Q-table:
+<img width="350" height="350" alt="image" src="https://github.com/user-attachments/assets/3f4f3728-434d-44af-bc4e-9aeb09dc1f53" />
 
 
+### Estimated State-Value Function:
+<img width="422" height="117" alt="image" src="https://github.com/user-attachments/assets/7a0f4e6e-ab0f-40f8-a599-f60cb6256355" />
 
 
-
-Estimated State-Value Function:
-
-
+### Learned Policy:
+<img width="301" height="117" alt="image" src="https://github.com/user-attachments/assets/4578b15b-70aa-4e7b-901e-6058ac176d2c" />
 
 
+### Average reward over last 1000 episodes:
+<img width="451" height="35" alt="image" src="https://github.com/user-attachments/assets/306febb7-c915-4d0d-8a28-71ef66e5a208" />
 
+### Plot Learning Curve:
+<img width="957" height="521" alt="image" src="https://github.com/user-attachments/assets/d43a101a-ed8d-44e3-bad6-38c0042fb682" />
 
-Learned Policy:
-
-
-
-
-Average reward over last 1000 episodes: 
-```
 
 ---
 
 ## Result
 
-```text
-
-
-
-```
+The Q-Learning algorithm was successfully implemented on the Gymnasium `FrozenLake-v1` environment. The agent learned the optimal action-value function ($Q$) and derived a policy that successfully navigates the slippery grid world from start to goal while avoiding holes, achieving an average reward of ~0.43 over the last 1000 training episodes.
 
 ---
 
 ## Inference
 
-```text
-
-
-
-```
+1. **Convergence on Stochastic Dynamics**: Despite the slippery environment making transitions non-deterministic (with only a 33% chance of moving in the intended direction), the Q-learning agent successfully converged toward a high-reward policy.
+2. **Exploration vs. Exploitation Balance**: The exponential decay of epsilon ($\epsilon$) ensured sufficient state-space exploration early on and shifted the agent toward stable exploitation in later episodes.
+3. **Safe Policy Formulation**: The learned policy directs the agent into walls and safe boundaries near holes rather than directly toward the goal, deliberately minimizing the probability of accidentally slipping into holes.
 
 ---
+
 
